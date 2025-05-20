@@ -1,6 +1,6 @@
 const userModel = require('../models/user_model');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 class UserService {
