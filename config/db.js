@@ -20,4 +20,4 @@ async function connectToDB() {
 }
 
 // Export the connection
-module.exports = connectToDB;
+module.exports = mongoose;
