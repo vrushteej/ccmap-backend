@@ -6,7 +6,7 @@ const rideRoute = require('./routes/ride_routes');
 const razorpayRoute = require('./routes/razorpay_routes');
 const bikeRouter = require('./routes/bike_routes');
 const dotenv = require('dotenv');
-
+const bcrypt = require('bcryptjs');
 
 dotenv.config();
 
