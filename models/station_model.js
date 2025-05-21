@@ -45,4 +45,4 @@ stationSchema.pre('save', function (next) {
 
 stationSchema.index({location: "2dsphere"});
 
-module.exports = mongoose.model('station',stationSchema);
+module.exports = mongoose.model('Station',stationSchema);
