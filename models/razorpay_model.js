@@ -1,4 +1,3 @@
-const db = require("../config/db");
 const mongoose = require("mongoose");
 const User = require("./user_model");
 const Ride = require("./ride_model"); // Import Ride Model
@@ -47,8 +46,7 @@ const razorpaySchema = new Schema({
     }
 });
 
-const Payment = db.model("Payment", razorpaySchema);
-module.exports = Payment;
+module.exports = mongoose.model("Payment", razorpaySchema);
 
 
 
