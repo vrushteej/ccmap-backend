@@ -32,6 +32,7 @@ class stationService {
     static async getAllStations() {
         try {
             const stations = await stationModel.find();
+            console.log('Stations found in services:', stations);
             return stations;
         } catch (error) {
             throw error;
