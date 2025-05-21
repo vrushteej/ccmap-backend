@@ -25,6 +25,7 @@ exports.updateStationDetails = async (req,res,next) => {
 exports.getAllStations = async (req, res) => {
     try {
         const stations = await stationService.getAllStations();
+        console.log('Stations found in controller:', stations);
         res.status(200).json(stations);
     } catch (error) {
         res.status(400).json({ error: error.message });
