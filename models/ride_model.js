@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const db=require('../config/db');
 const userModel=require('./user_model');
 
 const { Schema } = mongoose;
@@ -52,5 +51,4 @@ const rideSchema = new Schema({
     }
 });
 
-const Ride = db.model("Ride", rideSchema);
-module.exports = Ride;
+module.exports = mongoose.model("Ride", rideSchema);
