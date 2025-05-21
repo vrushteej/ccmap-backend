@@ -14,7 +14,7 @@ class UserService {
 
             await newUser.save();
 // Create a JWT token with the user's _id
-            const tokenData = { userId: user._id }; // Use the MongoDB ObjectId here
+            const tokenData = { userId: newUser._id }; // Use the MongoDB ObjectId here
             const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
 
             return { message: "User registered successfully", user: newUser, token: token };
