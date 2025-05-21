@@ -7,11 +7,11 @@ const razorpayRoute = require('./routes/razorpay_routes');
 const bikeRouter = require('./routes/bike_routes');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
-
+const connectToDB = require('./config/db'); 
 dotenv.config();
-connectToDB();
-const app = express();
 
+const app = express();
+connectToDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
