@@ -9,7 +9,7 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 
 dotenv.config();
-
+connectToDB();
 const app = express();
 
 app.use(express.json());
