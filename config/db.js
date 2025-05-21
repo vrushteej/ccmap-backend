@@ -7,9 +7,10 @@ async function connectToDB() {
       useNewUrlParser: true,   // Ensures proper parsing of connection string
       useUnifiedTopology: true, // Avoids deprecation warning related to topology engine
     });
-
+    await mongoose.connection.db.admin().command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
     // Log on successful connection
-    console.log('MongoDB connected');
+    // console.log('MongoDB connected');
 
     // You can access the connection through `connection.connection` if you need to reference it later
     return connection;  // Return the connection to use elsewhere if needed
