@@ -9,10 +9,7 @@ async function connectToDB() {
 //      useUnifiedTopology: true, // Avoids deprecation warning related to topology engine
 //    });
 //    
-    const connection = mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }).then(() => {
+    const connection = mongoose.connect(process.env.MONGODB_URI).then(() => {
       console.log('MongoDB connected successfully');
     }).catch(err => {
       console.error('MongoDB connection error:', err);
