@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const db = require('../config/db');
 
 const { Schema } = mongoose;
 
@@ -46,4 +45,4 @@ stationSchema.pre('save', function (next) {
 
 stationSchema.index({location: "2dsphere"});
 
-module.exports = db.model('station',stationSchema);
+module.exports = mongoose.model('station',stationSchema);
