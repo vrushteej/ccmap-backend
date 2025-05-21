@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const db = require('../config/db');
 const stationModel = require('./station_model'); // Assuming you have a station model 
 const { Schema } = mongoose;
 
@@ -68,8 +67,7 @@ bikeSchema.pre('findOneAndUpdate', function (next) {
     next();
   });
 
-const bikeModel = db.model('Bike', bikeSchema);
-module.exports = bikeModel;
+module.exports = mongoose.model('Bike', bikeSchema);
 
 
 
