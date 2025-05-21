@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 async function connectToDB() {
   try {
+    console.log('Starting mongodb connection');
     // Create the connection using mongoose.connect() rather than mongoose.createConnection()
 //    const connection = await mongoose.connect(process.env.MONGODB_URI, {
 //      useNewUrlParser: true,   // Ensures proper parsing of connection string
