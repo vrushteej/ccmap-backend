@@ -8,8 +8,9 @@ class UserService {
     static async registerUser(email, phone, password) {
         try {
             const existingUser = await userModel.findOne({ $or: [{ email }, { phone }] });
+            console.log("Checking for existing user:", existingUser);
+            
             if (existingUser){
-                console.log('Existing User:', existingUser);
                 throw new Error("User with this email or phone already exists.");
                 // return { message: "User with this email or phone is already registered." };
             }

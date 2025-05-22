@@ -2,15 +2,8 @@ const mongoose = require('mongoose');
 
 async function connectToDB() {
   try {
-    console.log('Starting mongodb connection');
-    // Create the connection using mongoose.connect() rather than mongoose.createConnection()
-//    const connection = await mongoose.connect(process.env.MONGODB_URI, {
-//      useNewUrlParser: true,   // Ensures proper parsing of connection string
-//      useUnifiedTopology: true, // Avoids deprecation warning related to topology engine
-//    });
-//    
     const connection = mongoose.connect(process.env.MONGODB_URI).then(() => {
-      console.log('MongoDB connected successfully');
+      console.log("Connected to DB: ", mongoose.connection.name);
     }).catch(err => {
       console.error('MongoDB connection error:', err);
     });
