@@ -6,7 +6,7 @@ exports.register = async (req, res, next) => {
     try {
         const { email, phone, password } = req.body;
         const response = await userService.registerUser(email, phone, password);
-        res.json({ status: true, message: response.message, user: response.user });
+        res.json({ status: true, message: response.message, user: response.user, token: response.token });
     } catch (error) {
         next(error);
     }
