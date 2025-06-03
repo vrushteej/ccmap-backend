@@ -6,12 +6,12 @@ const rideRoute = require('./routes/ride_routes');
 const razorpayRoute = require('./routes/razorpay_routes');
 const bikeRouter = require('./routes/bike_routes');
 const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
-const connectToDB = require('./config/db'); 
+const { errorHandler } = require('./middleware/errorMiddleware');
+
 dotenv.config();
 
 const app = express();
-connectToDB();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,5 +26,7 @@ app.use('/bike', bikeRouter);
 app.get('/', (req, res) => {
     res.send("Hello, Welcome to the E-bike Rental System!");
 });
+
+app.use(errorHandler);
 
 module.exports = app;

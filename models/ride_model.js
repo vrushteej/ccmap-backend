@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const db=require('../config/db');
 const userModel=require('./user_model');
+
 
 const { Schema } = mongoose;
 
@@ -48,7 +50,17 @@ const rideSchema = new Schema({
         type: String,
         enum: ['ongoing', 'completed'],
         default: 'ongoing'
-    }
+    },
+    tracking_path:[
+    {
+        latitude: Number,
+        longitude: Number,
+        accuracy: Number,
+        timestamp: {
+            type: Date,
+            default:Date.now
+        }
+    }]
 });
 
-module.exports = mongoose.model("Ride", rideSchema);
+module.exports = mongoose.model('Ride',rideSchema);

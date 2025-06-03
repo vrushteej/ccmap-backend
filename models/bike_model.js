@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const db = require('../config/db');
 const stationModel = require('./station_model'); // Assuming you have a station model 
 const { Schema } = mongoose;
 
@@ -67,38 +68,5 @@ bikeSchema.pre('findOneAndUpdate', function (next) {
     next();
   });
 
-module.exports = mongoose.model('Bike', bikeSchema);
+module.exports = mongoose.model('Bike',bikeSchema)
 
-
-
-
-// const mongoose = require('mongoose');
-
-// const bikeSchema = new mongoose.Schema({
-//   bikeId: {
-//     type: String,
-//     required: true,
-//     unique: true
-//   },
-//   qrCodeStatus: {
-//     type: String,
-//     enum: ['locked', 'unlocked'],
-//     default: 'locked'
-//   },
-//   isInDock: {
-//     type: Boolean,
-//     default: true
-//   },
-//   stationId: {
-//     type: String,
-//     default: null
-//   }
-// });
-
-// // 💡 Pre-save hook to clear stationId if bike is not docked
-
-
-// // Also applies to update operations if needed
-
-
-// module.exports = mongoose.model('Bike', bikeSchema);
