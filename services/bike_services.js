@@ -10,8 +10,6 @@ class bikeService {
                 isInDock,
                 station_id,
                 battery_level,
-                latitude,
-                longitude,
                 last_service_date
             } = data;
 
@@ -21,12 +19,6 @@ class bikeService {
                 station_id: isInDock ? station_id : null,
                 battery_level,
                 last_service_date,
-                latitude,
-                longitude,
-                location: {
-                    type: 'Point',
-                    coordinates: [longitude, latitude]
-                }
             });
 
             await bike.save();
@@ -61,13 +53,6 @@ class bikeService {
     // 4. Update bike
     static async updateBike(bikeId, data) {
         try {
-            if (data.latitude && data.longitude) {
-                data.location = {
-                    type: 'Point',
-                    coordinates: [data.longitude, data.latitude]
-                };
-            }
-
             // If isInDock is false, unset station_id
             if (data.isInDock === false) {
                 data.station_id = null;
@@ -108,8 +93,6 @@ class bikeService {
                     name: bike.station_id.name || 'Unknown'
                 } : null,
                 last_service_date: bike.last_service_date,
-                latitude: bike.latitude,
-                longitude: bike.longitude
             };
 
             const qrString = JSON.stringify(qrData);

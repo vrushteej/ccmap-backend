@@ -9,13 +9,14 @@ const rideSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: userModel.modelName, // Reference to User model
-        
+        required: true,
+        index: true,
     },
     amount: {
         type: Number,
     },
     start_station: {
-        station_id: String,
+        station_id: { type: String, required: true },
         name: String,
         location: {
           latitude: Number,

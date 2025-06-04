@@ -1,13 +1,14 @@
 const rideService = require('../services/ride_service');
 
-//  Start Ride
+// Start Ride
 exports.startRide = async (req, res, next) => {
   try {
-    const { userId, bikeId, latitude, longitude } = req.body;
+    const { userId, bikeId, stationId, latitude, longitude } = req.body;
 
     const ride = await rideService.startRide({
       userId,
       bikeId,
+      stationId,
       latitude,
       longitude
     });
@@ -22,49 +23,49 @@ exports.startRide = async (req, res, next) => {
   }
 };
 
-//  End Ride with distance & amount
+// End Ride with distance & amount
 exports.endRide = async (req, res, next) => {
-    try {
-      const { rideId, latitude, longitude, amount } = req.body;
-  
-      const ride = await rideService.endRide({
-        rideId,
-        latitude,
-        longitude,
-        amount
-      });
-  
-      res.status(200).json({
-        status: true,
-        message: 'Ride ended successfully',
-        data: {
-          ride_id: ride._id,
-          duration: `${ride.duration_minutes} mins`,
-          distance: `${ride.distance_km} km`,
-          amount: `₹${ride.amount}`,
-          start_station: {
-            station_id: ride.start_station.station_id,
-            name: ride.start_station.name,
-            latitude: ride.start_station.location.latitude,
-            longitude: ride.start_station.location.longitude
-          },
-          end_station: {
-            station_id: ride.end_station.station_id,
-            name: ride.end_station.name,
-            latitude: ride.end_station.location.latitude,
-            longitude: ride.end_station.location.longitude
-          },
-          started_at: ride.start_time,
-          ended_at: ride.end_time
-        }
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
-  
+  try {
+    const { rideId, stationId, latitude, longitude, amount } = req.body;
 
-//  Get All Rides for a User
+    const ride = await rideService.endRide({
+      rideId,
+      stationId,
+      latitude,
+      longitude,
+      amount
+    });
+
+    res.status(200).json({
+      status: true,
+      message: 'Ride ended successfully',
+      data: {
+        ride_id: ride._id,
+        duration: `${ride.duration_minutes} mins`,
+        distance: `${ride.distance_km} km`,
+        amount: `₹${ride.amount}`,
+        start_station: {
+          station_id: ride.start_station.station_id,
+          name: ride.start_station.name,
+          latitude: ride.start_station.location.latitude,
+          longitude: ride.start_station.location.longitude
+        },
+        end_station: {
+          station_id: ride.end_station.station_id,
+          name: ride.end_station.name,
+          latitude: ride.end_station.location.latitude,
+          longitude: ride.end_station.location.longitude
+        },
+        started_at: ride.start_time,
+        ended_at: ride.end_time
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get All Rides for a User
 exports.getUserRides = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -84,7 +85,20 @@ exports.trackRide = async (req, res, next) => {
   try {
     const { rideId, latitude, longitude, accuracy } = req.body;
 
-    const result = await rideService.addTrackingPoint({ rideId, latitude, longitude, accuracy });
+    // Validate required parameters
+    if (!rideId || typeof latitude !== 'number' || typeof longitude !== 'number') {
+      return res.status(400).json({
+        status: false,
+        message: 'Missing or invalid parameters: rideId, latitude, and longitude are required.'
+      });
+    }
+
+    const result = await rideService.addTrackingPoint({
+      rideId,
+      latitude,
+      longitude,
+      accuracy: accuracy || null // optional
+    });
 
     res.status(200).json({
       status: true,
@@ -95,5 +109,4 @@ exports.trackRide = async (req, res, next) => {
     next(error);
   }
 };
-
 

@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const bikeSchema = new Schema({
     status: {
         type: String,
-        enum: ['locked', 'unlocked', 'maintenance'],
+        enum: ['locked', 'unlocked', 'maintenance','ontrip',],
         default: 'locked'
     },
 
@@ -28,26 +28,6 @@ const bikeSchema = new Schema({
     last_service_date: {
         type: Date,
         default: Date.now
-    },
-
-    latitude: {
-            type: Number,
-            required: true
-    },
-    longitude: {
-            type: Number,
-            required: true
-    },
-    location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            default: 'Point',
-        },
-        coordinates: {
-            type: [Number],
-            required: true,
-        }
     },
 }, {
     timestamps: true

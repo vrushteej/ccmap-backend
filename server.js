@@ -15,12 +15,21 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
-  socket.on('location-update', async (data) => {
-    console.log('Location from user:', data);
+  // User joins rooms for their userId and the current rideId
+  socket.on('join-ride', ({ userId, rideId }) => {
+    const userRoom = `user-${userId}`;
+    const rideRoom = `ride-${rideId}`;
 
-    const { rideId, latitude, longitude, accuracy, timestamp } = data;
+    socket.join(userRoom);
+    socket.join(rideRoom);
 
+    console.log(`User ${userId} joined rooms: ${userRoom}, ${rideRoom}`);
+  });
+
+  // Receive location updates from client and broadcast to others in ride room
+  socket.on('location-update', async ({ rideId, latitude, longitude, accuracy, timestamp }) => {
     try {
+      // Save tracking point in RideTracking collection (upsert to create if not exists)
       await RideTracking.updateOne(
         { rideId },
         {
@@ -36,8 +45,8 @@ io.on('connection', (socket) => {
         { upsert: true }
       );
 
-      // Broadcast updated location to clients listening for this ride
-      io.emit(`ride-${rideId}-update`, {
+      // Emit location update to everyone listening to this ride room
+      io.to(`ride-${rideId}`).emit('location-update', {
         latitude,
         longitude,
         accuracy,
