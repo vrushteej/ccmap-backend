@@ -6,21 +6,36 @@
 <body>
   <h1>Socket.io WebSocket Test</h1>
   <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
-  <script>
-    const socket = io('http://localhost:3000'); 
+<script>
+  const socket = io('http://localhost:3000');
 
-    socket.on('connect', () => {
-      console.log('Connected to server with ID:', socket.id);
-      socket.emit('test-message', 'Hello from client');
-    });
+  socket.on('connect', () => {
+    console.log('Connected to server with ID:', socket.id);
 
-    socket.on('test-response', (msg) => {
-      console.log('Received from server:', msg);
-    });
+    // Simulate joining a ride (use actual rideId and userId from your DB)
+    const rideId = "683fef1a83f53ff8e0094247"; // replace with valid MongoDB rideId
+    const userId = "683fe37e10347959beddc5db"; // replace with valid userId
+    socket.emit('join-ride', { rideId, userId });
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
-    });
-  </script>
+    // Send a mock location update every 2 seconds
+    setInterval(() => {
+      const mockLocation = {
+        rideId,
+        latitude: 19.0760 + (Math.random() * 0.001),  // Mumbai mock coords
+        longitude: 72.8777 + (Math.random() * 0.001),
+        accuracy: Math.random() * 5,
+        timestamp: new Date().toISOString()
+      };
+
+      socket.emit('location-update', mockLocation);
+      console.log('Sent location:', mockLocation);
+    }, 2000);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Disconnected from server');
+  });
+</script>
+
 </body>
 </html>

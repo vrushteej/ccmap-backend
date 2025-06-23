@@ -147,15 +147,27 @@ class RideServices {
 
     if (trackingRecord && trackingRecord.trackingData.length > 0) {
       // Sort by timestamp ascending
-      ride.tracking_path = trackingRecord.trackingData.sort(
+      const sortedTracking = trackingRecord.trackingData.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
       );
+
+      // Save full path
+      ride.tracking_path = sortedTracking;
+
+      // Save last location from sorted tracking
+      const lastPoint = sortedTracking[sortedTracking.length - 1];
+      ride.last_location = {
+        latitude: lastPoint.latitude,
+        longitude: lastPoint.longitude,
+        timestamp: lastPoint.timestamp
+      };
     }
 
     await ride.save();
 
     return ride;
   }
+
 
 
   static async getRide(userId) {
