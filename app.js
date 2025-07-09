@@ -16,11 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use('/user', userRouter);
-app.use('/ride',rideRoute);
-app.use('/payment',razorpayRoute);
-app.use('/station', stationRouter);
-app.use('/bike', bikeRouter);
+app.use('/ccmap/user', userRouter);
+app.use('/ccmap/ride',rideRoute);
+app.use('/ccmap/payment',razorpayRoute);
+app.use('/ccmap/station', stationRouter);
+app.use('/ccmap/bike', bikeRouter);
 
 
 app.get('/', (req, res) => {

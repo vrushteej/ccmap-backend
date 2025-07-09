@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb://localhost:27017/new';
+const uri = 'mongodb://localhost:27017/ccmap'; // or load from .env if needed
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
