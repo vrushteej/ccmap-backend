@@ -1,0 +1,35 @@
+ccmap-backend/
+├── .env                          # Environment variables (Mongo URI, JWT secret, etc.)
+├── app.js                        # Express app setup: middlewares, routes
+├── index.js                      # Entry point: loads app, connects DB, starts server
+├── server.js                     # Initializes HTTP + WebSocket server
+├── jwt.js                        # JWT token generation and verification utility
+├── db.js                         # MongoDB connection script
+│
+├── services/                     # Business logic and utilities
+│   ├── bike_services.js          # Logic for locking, unlocking, and managing bikes
+│   ├── otp_services.js           # OTP generation/verification for login/signup
+│   ├── qr_services.js            # QR code scanning and decoding logic
+│   ├── razorpay_services.js      # Integration logic for Razorpay payment APIs
+│   ├── ride_service.js           # Ride start, end, fare, and tracking operations
+│   ├── station_services.js       # Station lookup, listing, and location-based logic
+│   └── user_services.js          # Signup, login, user info, and authentication handling
+│
+├── middleware/                   # Express middlewares for request/response lifecycle
+│   └── errorMiddleware.js        # Global error handler for formatting server errors
+│
+├── models/                       # Mongoose schemas for MongoDB collections
+│   ├── bike_model.js             # Bike schema: ID, status, assigned station, etc.
+│   ├── razorpay_model.js         # Payment session and order tracking schema
+│   ├── ride_model.js             # Ride schema: duration, fare, user, bike IDs
+│   ├── ride_tracking_model.js    # Logs real-time location coordinates per ride
+│   ├── station_model.js          # Station schema: location, name, available bikes
+│   └── user_model.js             # User schema: name, DOB, email, password, etc.
+│
+├── routes/                       # Express route definitions and handlers
+│   ├── bike_routes.js            # Routes like POST `/bike/unlock`, `/bike/status`
+│   ├── razorpay_routes.js        # Routes for initiating and verifying payments
+│   ├── ride_routes.js            # Routes for ride lifecycle and live tracking
+│   ├── station_routes.js         # Station-related APIs: fetch nearby, details
+│   └── user_routes.js            # Auth routes: register, login, fetch user info
+
